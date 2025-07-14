@@ -1,15 +1,8 @@
-BAM="heK_calls_all.sorted.bam"          # ваш выровненный файл ONT
-GENES="prom_bottom50.bed"        # chr  start  end  GeneName   (0-based BED)
-REF="hg38.fa"              # FASTA hg38
-PROB=0.75                  # порог уверенности метила (0-1)
-THREADS=4                 # параллель
-THRESH=0.75  
  
-
-bedtools nuc -fi "$REF" -bed "$GENES" -pattern CG \
+bedtools nuc -fi "$REF" -bed prom_tmp.bed -pattern CG \
 | awk 'BEGIN{OFS="\t"}$1 !~ /^#/ {coord = $1":"$2"-"$3; print $4, coord, $10 }'  > _gene_cpg.tmp          # Gene_prom  coord  CpG_sites
 
-modkit stats --regions "$GENES" \
+modkit stats --regions prom_tmp.bed \
              --out-table stdout \
              --min-coverage 1 \
              mods_cpg_filt.bed.gz \
@@ -17,7 +10,7 @@ modkit stats --regions "$GENES" \
 > _gene_meth.tmp          # Gene   CpG_sites   CpG_methylated
 
 # 2) Среднее покрытие (mosdepth) — ключ = Gene
-mosdepth --by "$GENES" -t "$THREADS" geneCov "$BAM"
+mosdepth --by prom_tmp.bed -t "$THREADS" geneCov "$BAM"
 
 zgrep -v '^#' geneCov.regions.bed.gz | awk '{print $4"\t"$5}' \
 | sort -k1,1 > _gene_cov.tmp        # Gene  mean_cov
@@ -46,7 +39,6 @@ awk -v OFS='\t' '
 ' _gene_meth.tmp _gene_cov.tmp _gene_cpg.tmp \
 | sort -k1,1 \
 | sed '1iGene\tcoord\tCpG_sites\tCpG_methylated\tmean_coverage' \
-> prom_bottom50_CpG.tsv
-rm -f _gene_cpg.tmp _gene_cov.tmp tmp* *.tmp
+> prom_CpG.tsv
 echo "✓ Готово: gene_summary.tsv"
 echo "Формат: Gene  chr:start-end  CpG_sites  mean_coverage"
