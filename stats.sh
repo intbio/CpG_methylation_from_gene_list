@@ -9,10 +9,10 @@ THRESH=0.75
 bedtools nuc -fi "$REF" -bed "$GENES" -pattern CG \
 | awk 'BEGIN{OFS="\t"}$1 !~ /^#/ {coord = $1":"$2"-"$3; print $4, coord, $10 }'  > _gene_cpg.tmp          # Gene_prom  coord  CpG_sites
 
-modkit stats --regions prom_bottom50.bed \
+modkit stats --regions "$GENES" \
              --out-table stdout \
              --min-coverage 1 \
-             mods_cpg.bed.tmp.gz \
+             mods_cpg_filt.bed.tmp.gz \
 | awk 'BEGIN{OFS="\t"} $1 !~ /^#/ { print $4, $9 }' \
 > _gene_meth.tmp          # Gene   CpG_sites   CpG_methylated
 
