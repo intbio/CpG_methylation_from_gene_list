@@ -12,7 +12,7 @@ bedtools nuc -fi "$REF" -bed "$GENES" -pattern CG \
 modkit stats --regions "$GENES" \
              --out-table stdout \
              --min-coverage 1 \
-             mods_cpg_filt.bed.tmp.gz \
+             mods_cpg_filt.bed.gz \
 | awk 'BEGIN{OFS="\t"} $1 !~ /^#/ { print $4, $9 }' \
 > _gene_meth.tmp          # Gene   CpG_sites   CpG_methylated
 

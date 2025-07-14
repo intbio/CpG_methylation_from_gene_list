@@ -25,16 +25,7 @@ modkit pileup \
 bgzip -@ "$THREADS" mods_cpg.bed.tmp
 tabix -p bed mods_cpg.bed.tmp.gz     # индекс для быстрых запросов
 
-zcat mods_cpg.bed.tmp.gz \
-| awk -v thr="$METH_COV_THRESH" 'BEGIN{OFS="\t"}
-     /^#/ {print; next}                 # оставляем строки-шапки
-     {
-       m   = $7 + 0;                    # 7-я колонка = count_m
-       u   = $8 + 0;                    # 8-я колонка = count_u
-       tot = m + u;
-       if (tot == 0) next;              # на всякий случай
-       perc = (m / tot) * 100;
-       if (perc >= thr) print;          # сайт проходит порог
-     }' \
-| bgzip > mods_cpg_filt.bed.tmp.gz
-tabix -p bed mods_cpg_filt.bed.tmp.gz
+zgrep -v '^#' mods_cpg.bed.tmp.gz \
+| awk -v thr="$READ_PERC" '($11+0) >= thr' \
+| bgzip > mods_cpg_filt.bed.gz
+tabix -p bed mods_cpg_filt.bed.gz
