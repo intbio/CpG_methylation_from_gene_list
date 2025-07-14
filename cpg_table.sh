@@ -17,12 +17,14 @@ Usage: $(basename "$0") [options]
   -g  gene list file.txt                  [$gene_list]
   -p  promoter length, bp                 [$PROM]
   -a  GTF-annotation                      [$annotation]
-  -b  BAM 
+  -b  BAM	                          [$BAM] 
   -r  reference FASTA                     [$REF]
   -t  threshold of methylation accuracy   [$THRESH]
   -c  threshold % meth-reads coverage (β) [$METH_COV_THRESH]
   -n  threads                             [$THREADS]
   -h  help
+
+be sure you have modkit, samtools, bedtools, mosdepth
 EOF
 exit 1
 }
