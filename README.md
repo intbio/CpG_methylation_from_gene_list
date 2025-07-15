@@ -24,14 +24,23 @@ directory)
 Usage: cpg_table.sh [options]
 
   -g  gene list file.txt                  []
+  
   -p  promoter length, bp                 [500]
+  
   -a  GTF-annotation                      []
+  
   -b  BAM                                 [] 
+  
   -r  reference FASTA                     []
+  
   -t  threshold of methylation accuracy   [0.75]
+  
   -c  threshold % meth-reads coverage (β) [50]
+  
   -n  threads                             [8]
+  
   -o  output (.tsv)                       [prom_CpG.tsv]
+  
   -h  help
 
 EXAMPLE OF USING THE SCRIPT: 
