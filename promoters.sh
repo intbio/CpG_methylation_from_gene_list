@@ -12,5 +12,5 @@ awk -v P=$PROM 'BEGIN{OFS="\t"}
     # BED требует start<end
     if (s<e) print $1,s,e,$4"_prom"
     else     print $1,e,s,$4"_prom"
-}' bottom50.bed > prom_bottom50.bed
+}' tmp.bed > prom_tmp.bed
 
