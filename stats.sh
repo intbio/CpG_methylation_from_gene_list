@@ -39,6 +39,6 @@ awk -v OFS='\t' '
 ' _gene_meth.tmp _gene_cov.tmp _gene_cpg.tmp \
 | sort -k1,1 \
 | sed '1iGene\tcoord\tCpG_sites\tCpG_methylated\tmean_coverage' \
-> prom_CpG.tsv
+> "$OUT"
 echo "✓ Готово: gene_summary.tsv"
 echo "Формат: Gene  chr:start-end  CpG_sites  mean_coverage"
