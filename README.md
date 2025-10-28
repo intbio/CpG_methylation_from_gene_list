@@ -8,7 +8,7 @@ bedtools                  2.31.1
 mosdepth                  0.3.10 
 modkit                    1.3.0
 
-to use this script you are need to have:
+to use this script you need to have:
 
 1) gene_list.txt containing list of the genes it 1 row without spaces
 
