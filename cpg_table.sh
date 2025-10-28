@@ -17,7 +17,7 @@ Usage: $(basename "$0") [options]
   -g  gene list file.txt                  [$gene_list]
   -p  promoter length, bp                 [$PROM]
   -a  GTF-annotation                      [$annotation]
-  -b  BAM	                          [$BAM] 
+  -b  BAM	                                [$BAM] 
   -r  reference FASTA                     [$REF]
   -t  threshold of methylation accuracy   [$THRESH]
   -c  threshold % meth-reads coverage (β) [$METH_COV_THRESH]
@@ -53,7 +53,7 @@ echo "you entered $gene_list $PROM $annotation $BAM $REF $THRESH $METH_COV_THRES
 bash genes_annot.sh 
 bash promoters.sh 
 if [ ! -f "mods_cpg_filt.bed.gz" ]; then
-    # Блок кода, который выполняется ТОЛЬКО если файл отсутствует
+    # Блок кода, который выполняется ТОЛЬКО если таблица bedmethyl отсутствует
     echo "Файл не найден, выполняем действия"
     bash pileup.sh
 fi
