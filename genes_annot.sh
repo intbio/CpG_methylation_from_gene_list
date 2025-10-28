@@ -5,5 +5,5 @@ awk '
       match($0,/gene_name "([^"]+)"/,a)
       gene=a[1]
       print $1,$4-1,$5,gene,$7
-  }' ~/mandybura_data/genomes/ref/gencode.v44.annotation.gtf \
+  }' $annotation \
 | grep -Fwf "$gene_list"  > tmp.bed
